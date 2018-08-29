@@ -1,0 +1,101 @@
+doctype html
+html
+	head
+		title
+	body
+
+p 这是文本
+| 这是文本
+p.
+	这是文本
+
+p.foo
+p#foo
+p#foo.foo
+.foo
+#foo
+
+a(href='google.com') google
+script.
+	var foo = true
+p(class=foo ? "authed" : 'anon')
+input(
+	type='checkbox'
+	name="agreement"
+	checked
+)
+div(data-var='foo')&attributes({"data-foo":"bar"})
+
+- var num = 3
+
+case num
+	when 0
+		p 这是0
+	when 1
+		break
+	when 3
+		p 这是 #{num}
+
+ul
+	- var n = 0
+	while n < 4
+		li=n ++
+	ul
+		- for(var x=0;x<3;x++)
+			li item
+ol
+	- var list = [1,2,3,4,5]
+	each item in list
+		li= item
+
+- var user = {foo: 'this is foo'}
+- var bar = baz
+#user
+	if user.foo
+		h2.green foo
+		p.foo= user.foo
+	else if bar
+		h2.blue foo
+		p.foo.
+			User has no foo
+	else
+		h2.red foo
+		p.foo user has no foo
+
+unless user.isFoo
+	p 等同于：if !user.foo
+
+
+mixin list
+	ul
+		li foo
+		li bar
+		li baz
+
++list
++list
+
+mixin article(title)
+	.article
+		.article-wrapper
+			h3= title
+			if block
+				block
+			else
+				p NO content provided
++article("hello world")
++article("hello pug")
+	p This is my
+	p Amazing article
+
+mixin link(href, name)
+	a(class=attributes.class href=href)= name
+
++link("/foo", "foo")(class="btn")
+
+
+mixin list(id, ...items)
+	ul(id=id)
+		each item in items
+			li= item
++list("my-list", 1,2,3,4,5)
